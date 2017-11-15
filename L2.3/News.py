@@ -8,45 +8,37 @@ def read_files(name):
         original_text = data.decode(result['encoding'])
         return original_text
 
-
-def count_words(original_text):
+def count_word(original_text):
     to_list = original_text.split(' ')
-    words_value = {}
+    to_set = set()
     for words in to_list:
         if len(words) > 6:
-            if words in words_value:
-                words_value[words] += 1
-            else:
-                words_value[words] = 1
-                return words_value
+            to_set.add(words)
+    words_value = {}
+    for letter_count in to_set:
+        count = 0
+        for s in to_list:
+            if letter_count == s:
+                count += 1
+        words_value[letter_count] = count
+    return words_value
 
-def sort_top(word_value):
-    l = lambda word_value: word_value[1]
-    sort_list = sorted(word_value.items(), key = l, reverse = True)
-    count = 1
-    top_10 = {}
-    for word in sort_list:
-        top_10[count] = word
-        count += 1
-        if count == 10:
-            break
-    return top_10
+def sort_top(words_value):
+    reverse = True
+    sorted_count_pairs = sorted(words_value.items(), key = lambda x: x[1], reverse = True)
+    top10 = sorted_count_pairs[:10]
+    for word, freq in top10:
+        print("Слово {} выстретилось {} раз".format(word, freq))
 
-def count_word(param):
-    pass
 
 def main():
     while True:
-        name = input('Введите имя файла: newsfr.json, newsit.json, newsafr.json, newscy.json. Выход - exit: ')
+        name = input('Введите имя файла: newsit.json, newsafr.json, newsfr.json, newscy.json. Выход - exit: ')
         if name == 'newsfr.json' or name == 'newsit.json' or name == 'newsafr.json' or name == 'newscy.json':
             print('Идет обработка файла ...')
-            top_10 = sort_top(count_word(read_files(name)))
-            for i in top_10.values():
-                print(i[1], ': ', i[0])
-        elif name == 'exit':
+            top10 = sort_top(count_word(read_files(name)))
             break
         else:
             print('Некорректный ввод, повторите.')
 
-
-main ()
+main()
