@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+
 def read_files(name):
     import chardet
     with open(name, 'rb') as f:
@@ -24,8 +25,7 @@ def count_word(original_text):
     return words_value
 
 def sort_top(words_value):
-    reverse = True
-    sorted_count_pairs = sorted(words_value.items(), key = lambda x: x[1], reverse = True)
+    sorted_count_pairs = sorted(words_value.items(), key=lambda x: x[1], reverse=True)
     top10 = sorted_count_pairs[:10]
     for word, freq in top10:
         print("Слово {} выстретилось {} раз".format(word, freq))
@@ -40,5 +40,6 @@ def main():
             break
         else:
             print('Некорректный ввод, повторите.')
+
 
 main()
