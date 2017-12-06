@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-
-
 class Animal():
     name = ''
     sound = ''
     food = ''
 
-
     def __init__(self, a_name, a_sound):
         self.name = a_name
         self.sound = a_sound
-
 
     def anim_sound(self):
         print(self.sound)
@@ -20,13 +16,11 @@ class Mammals(Animal):
     gives_milk = False
     gives_meat = False
 
-
     def we_have(self):
         if self.gives_milk:
             print('Дает молоко.')
         elif self.gives_meat:
-            print ( 'Дает мясо.' )
-
+            print('Дает мясо.')
 
 
 class Birds(Animal):
@@ -63,6 +57,7 @@ print(goat.horns)
 goat.anim_sound()
 goat.we_have()
 
+
 class Big_Sheeps (Mammals):
     def __init__(self, kilo):
         Animal.__init__(self, 'sheep', 'bee-bee-bee')
@@ -82,7 +77,6 @@ class Big_Pigs (Mammals):
         Animal.__init__(self, 'pig', 'hru')
         self.meat = meat_kg
         self.gives_meat = True
-
 
 
 pig = Big_Pigs(45)
