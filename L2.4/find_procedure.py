@@ -51,13 +51,14 @@ if __name__ == '__main__':
     while True:
         counter = 0
         s = input('Filter:')
-        if not s: break
+        if not s:
+            break
         for fname in files:
-            with open(fname, encoding='utf-8') as f:
-                if s in f.read():
-                    print(fname)
-                    list_my.append(fname)
-                    counter += 1
-                    f.close()
-                    files = list_my
-        print('Файлов всего', counter)
+                with open(fname, encoding='utf-8') as f:
+                    if s in f.read():
+                        print(fname)
+                        list_my.append(fname)
+                        counter += 1
+                        f.close()
+                        files = list_my
+                        print('Файлов всего', counter)
