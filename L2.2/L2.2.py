@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
 def read_files(name):
     import chardet
     with open(name, 'rb') as f:
@@ -8,6 +9,7 @@ def read_files(name):
         result = chardet.detect(data)
         original_text = data.decode(result['encoding'])
         return original_text
+
 
 def count_word(original_text):
     to_list = original_text.split(' ')
@@ -23,6 +25,7 @@ def count_word(original_text):
                 count += 1
         words_value[letter_count] = count
     return words_value
+
 
 def sort_top(words_value):
     sorted_count_pairs = sorted(words_value.items(), key=lambda x: x[1], reverse=True)
