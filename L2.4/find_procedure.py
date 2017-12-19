@@ -38,27 +38,51 @@
 #
 # 41  # не забываем организовывать собственный код в функции
 
+
 import os
 
+migrations = 'Migrations'
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+
+def sql_file(file_name):
+    return os.path.splitext(file_name)[1] == '.sql'
+
+
+def file_open(path_file):
+    with open(path_file) as f:
+        file_str = f.read()
+        return file_str
+
+
+def sql_files(search):
+    sql_list = []
+    for root, dirs, files in os.walk(search):
+        for file in files:
+            if sql_file(file):
+                sql_list.append(os.path.join(root, file))
+    return sql_list
+
+
+def check_string(searching_string, string_file):
+    return searching_string in string_file
+
+
+def list_of_result(searching_string, path_list):
+    result_of_search = []
+    for file_path in path_list:
+        file_string = file_open(file_path)
+        if check_string(searching_string, file_string):
+            result_of_search.append(file_path)
+    return result_of_search
+
+
 if __name__ == '__main__':
-    migrations = 'Migrations'
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+
     search_dir = os.path.join(current_dir, migrations)
-    os.chdir(search_dir)
-    ext = '.sql'
-    files = [i for i in os.listdir(search_dir) if ext in i]
-    list_my = []
+    new_search_list = sql_files(search_dir)
     while True:
-        counter = 0
-        s = input('Filter:')
-        if not s:
-            break
-        for fname in files:
-                with open(fname, encoding='utf-8') as f:
-                    if s in f.read():
-                        print(fname)
-                        list_my.append(fname)
-                        counter += 1
-                        f.close()
-                        files = list_my
-                        print('Файлов всего', counter)
+        searching_string = input('Введите строку:\n')
+        new_search_list = list_of_result(searching_string, new_search_list)
+        print('\n'.join(new_search_list))
+        print('Всего: ', len(new_search_list))
