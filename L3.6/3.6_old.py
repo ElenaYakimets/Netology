@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Animal():
     name = ''
     sound = ''
@@ -32,8 +33,7 @@ class Birds(Animal):
 
 class Big_Cows(Mammals):
     def __init__(self, litres):
-        # Animal.__init__(self, 'cow', 'mumu')
-        super(Big_Cows, self).__init__('cow', 'mumu')
+        super.__init__(self, 'cow', 'mumu')
         self.milk_out_litres = litres
         self.gives_milk = True
 
@@ -46,8 +46,7 @@ cow.we_have()
 
 class Big_Goats (Mammals):
     def __init__(self, the_number):
-        super(Big_Goats, self).__init__('goat', 'bee-bee')
-        # Animal.__init__(self, 'goat', 'bee-bee')
+        super.__init__(self, 'goat', 'bee-bee')
         self.horns = the_number
         self.gives_milk = True
 
@@ -61,8 +60,7 @@ goat.we_have()
 
 class Big_Sheeps (Mammals):
     def __init__(self, kilo):
-        super(Big_Sheeps, self).__init__('sheep', 'bee-bee-bee')
-        # Animal.__init__(self, 'sheep', 'bee-bee-bee')
+        Animal.__init__(self, 'sheep', 'bee-bee-bee')
         self.wool = kilo
         self.gives_milk = True
 
@@ -76,8 +74,7 @@ sheep.we_have()
 
 class Big_Pigs (Mammals):
     def __init__(self, meat_kg):
-        super(Big_Pigs, self).__init__('pig', 'hru')
-        # Animal.__init__(self, 'pig', 'hru')
+        Animal.__init__(self, 'pig', 'hru')
         self.meat = meat_kg
         self.gives_meat = True
 
@@ -91,8 +88,7 @@ pig.we_have()
 
 class Beak_Ducks (Birds):
     def __init__(self, can_dive):
-        super(Beak_Ducks, self).__init__('duck', 'crya-crya')
-        # Animal.__init__(self, 'duck', 'crya-crya')
+        Animal.__init__(self, 'duck', 'crya-crya')
         self.dive_meters = can_dive
         self.gives_eggs = True
 
@@ -106,8 +102,7 @@ duck.we_have()
 
 class Beak_Chickens(Birds):
     def __init__(self, make_eggs):
-        super(Beak_Chickens, self).__init__('chicken', 'ko-ko')
-        # Animal.__init__(self, 'chicken', 'ko-ko')
+        Animal.__init__(self, 'chicken', 'ko-ko')
         self.eggs = make_eggs
         self.gives_eggs = True
 
@@ -121,8 +116,7 @@ chicken.we_have()
 
 class Beak_Geese(Birds):
     def __init__(self, can_swim):
-        super(Beak_Geese, self).__init__('goose', 'ga-ga')
-        # Animal.__init__(self, 'goose', 'ga-ga')
+        Animal.__init__(self, 'goose', 'ga-ga')
         self.swim_meters = can_swim
         self.gives_eggs = True
 
