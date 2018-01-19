@@ -1,13 +1,15 @@
 import time
 import json
 import requests
+import os
 
 VK_ID = '5030613'
+access_token = '5dfd6b0dee902310df772082421968f4c06443abecbc082a8440cb18910a56daca73ac8d04b25154a1128'
 
 
 def call_vk(method, params):
     parameters = {
-        'access_token': '5dfd6b0dee902310df772082421968f4c06443abecbc082a8440cb18910a56daca73ac8d04b25154a1128',
+        'access_token': access_token,
         'v': '5.69',
         }
     parameters.update(params)
@@ -29,11 +31,16 @@ def get_friends(user_id):
 
 def get_groups(user_id):
     response = call_vk('groups.get', {'user_id': user_id})
-    groups = response['items']
+    groups = set(response['items'])
     return groups
 
 
 def get_difference(user_id):
+    try:
+        os.remove('error.log')
+    except OSError:
+        pass
+    log_file = open('error.log', 'w')
     friends = get_friends(user_id)
     main_groups = get_groups(user_id)
     groups = set()
@@ -42,9 +49,11 @@ def get_difference(user_id):
             groups.update(get_groups(f))
             time.sleep(0.3)
             print('.')
-        except KeyError:
+        except KeyError as e:
+            log_file.write(str(f) + ' ' + str(e) + '\n')
             pass
-    unique_groups = set(main_groups).difference(groups)
+    log_file.close()
+    unique_groups = main_groups.difference(groups)
     return unique_groups
 
 
@@ -55,7 +64,7 @@ def get_group_info(user_id):
 
 def main():
     user_id = get_user(VK_ID)
-    unique_groups = list(get_difference(user_id))
+    unique_groups = get_difference(user_id)
     user_groups = get_group_info(user_id)
     group_info = []
     for g in user_groups['items']:
